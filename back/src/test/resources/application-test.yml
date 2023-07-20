@@ -11,7 +11,10 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        format_sql: true
-        show_sql: true
+        format_sql: false
+        show_sql: false
     hibernate:
       ddl-auto: create-drop
+  flyway:
+    enabled: false
+    validate-on-migrate: false

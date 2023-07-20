@@ -18,4 +18,7 @@ spring:
         format_sql: false
         show_sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  flyway:
+    enabled: true
+    validate-on-migrate: true
