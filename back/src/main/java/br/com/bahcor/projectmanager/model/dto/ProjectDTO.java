@@ -9,6 +9,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -40,6 +41,6 @@ public class ProjectDTO implements Serializable {
     private String status;
     private BigDecimal budget;
     private String risk;
-    private Set<PersonDTO> persons;
+    private Set<PersonDTO> persons = new HashSet<>();
 
 }
