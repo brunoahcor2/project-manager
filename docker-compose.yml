@@ -2,18 +2,35 @@ version: '3.1'
 
 services:
 
-  db:
+  back:
+    build: ./back/
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-postgres
+    networks:
+      - network
+
+  db-postgres:
     image: postgres
     restart: always
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=brunoahcor
-      - POSTGRES_PASSWORD=brunoahcor123
+      - POSTGRES_USER=pm
+      - POSTGRES_PASSWORD=pm@123
       - POSTGRES_DB=dev
+    networks:
+      - network
 
   db-adminer:
     image: adminer
     restart: always
     ports:
       - 8090:8080
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
