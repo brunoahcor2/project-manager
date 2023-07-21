@@ -8,9 +8,9 @@ spring:
     connectionTimeout: 20000
     maximumPoolSize: 5
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev
-    username: brunoahcor
-    password: brunoahcor123
+    url: jdbc:postgresql://db-postgres:5432/dev
+    username: pm
+    password: pm@123
   jpa:
     database-plataform: org.hibernate.dialect.PostgreSQL94Dialect
     properties:
