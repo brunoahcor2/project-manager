@@ -5,8 +5,8 @@ spring:
   datasource:
     url: jdbc:h2:file:/tmp/db;AUTO_SERVER=TRUE
     driverClassName: org.h2.Driver
-    username: sa
-    password: sa
+    username: pm
+    password: pm@123
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
