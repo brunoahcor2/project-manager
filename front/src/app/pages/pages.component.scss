@@ -1,0 +1,38 @@
+mat-sidenav {
+  width: 200px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.bahcor-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bahcor-is-mobile .bahcor-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.bahcor-app-name {
+  margin-left: 8px;
+}
+
+.bahcor-sidenav-container {
+  flex: 1;
+}
+
+.bahcor-is-mobile .bahcor-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.bachor-page {
+  padding: 2em;
+}
