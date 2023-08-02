@@ -28,7 +28,7 @@ public class ProjectResource {
     @PutMapping(value = "/{projectId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> editar(@Validated @RequestBody ProjectDTO request, @PathVariable("projectId") Long projectId) {
+    public ResponseEntity<?> edit(@Validated @RequestBody ProjectDTO request, @PathVariable("projectId") Long projectId) {
         return ResponseEntity.ok(service.edit(projectId, request));
     }
 
@@ -38,7 +38,7 @@ public class ProjectResource {
     }
 
     @GetMapping(value = "/{projectId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> consultar(@PathVariable Long projectId) {
+    public ResponseEntity<?> findById(@PathVariable Long projectId) {
         ProjectDTO response = service.findById(projectId);
         if(response == null){
             log.info("Project not found with the ID entered = "+projectId);

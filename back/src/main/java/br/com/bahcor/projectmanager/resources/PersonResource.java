@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("api/v1/persons")
@@ -16,16 +18,16 @@ public class PersonResource {
     @Autowired
     private PersonService service;
 
-    @PostMapping(value = "/registry",
+    @PutMapping(value = "/{personId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> registry(@Validated @RequestBody PersonDTO request) {
-        return ResponseEntity.ok(service.save(request));
+    public ResponseEntity<?> edit(@Validated @RequestBody PersonDTO request, @PathVariable("personId") Long personId) {
+        return ResponseEntity.ok(service.edit(personId, request));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> listAll() {
-        return ResponseEntity.ok(service.listAll());
+    public ResponseEntity<?> listAll(Optional<Boolean> employee, Optional<Boolean> active) {
+        return ResponseEntity.ok(service.findBySearchCriteria(employee, active));
     }
 
 }

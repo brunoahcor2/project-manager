@@ -17,8 +17,6 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -50,19 +48,22 @@ class ProjectResourceTest {
     }
 
     @Test
-    void whenRegisterAndInvalidObject_thenReturnException() {
+    void whenRegisterAndInvalidObject_thenReturnException() throws Exception {
 
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        //Exception exception = assertThrows(NullPointerException.class, () -> {
+
             ProjectDTO dto = mm.map(ProjectMock.getProject(2L), ProjectDTO.class);
             dto.setName(null);
             when(this.service.save(any(ProjectDTO.class))).thenReturn(dto);
 
             this.mvc.perform(post("/api/v1/projects/registry")
                     .content( Util.asJsonString(dto) )
-                    .contentType( MediaType.APPLICATION_JSON ));
-        });
+                    .contentType( MediaType.APPLICATION_JSON ))
+                    .andExpect( status().isBadRequest() );
 
-        assertEquals("name is marked non-null but is null", exception.getMessage());
+        //});
+
+        //assertEquals("name is marked non-null but is null", exception.getMessage());
     }
 
     @Test

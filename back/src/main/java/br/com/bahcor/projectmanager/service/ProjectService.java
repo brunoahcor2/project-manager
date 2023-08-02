@@ -12,7 +12,8 @@ import br.com.bahcor.projectmanager.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,13 +43,13 @@ public class ProjectService {
 
     public Set<ProjectDTO> listAll(){
         return projectRepository.findAll().stream()
-                .map(prj -> converter.toDTO(prj))
+                .map(converter::toDTO)
                 .collect(Collectors.toSet());
     }
 
     public ProjectDTO findById(Long projectId){
         return projectRepository.findById(projectId)
-                .map(prj -> converter.toDTO(prj))
+                .map(converter::toDTO)
                 .orElse(null);
     }
 

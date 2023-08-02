@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,10 +68,16 @@ class ProjectServiceIntegrationTest {
                     prj.addPersons(person);
                     return prj;
                 })
-                .map(prj -> converter.toDTO(prj))
+                .map(converter::toDTO)
                 .map(dto -> service.edit(dto.getId(), dto));
 
         assertEquals(entity.get().getId(), response.get().getId());
+    }
+
+    @Test
+    void listAll() {
+        Set<ProjectDTO> dtos = service.listAll();
+        assertTrue(!dtos.isEmpty());
     }
 
     @Test

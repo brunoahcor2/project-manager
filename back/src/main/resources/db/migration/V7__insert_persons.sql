@@ -1,7 +1,18 @@
-INSERT INTO person (name, date_birth, cpf, employee, position) VALUES
-('Moheu','1985-12-09','05691930010',true,'MANAGER'),
-('Zutoatya','1984-11-01','82927089019',true,'MANAGER'),
-('Gacayoss','1983-10-05','72860478094',true,'ANALYST'),
-('Fuynu','1982-09-15','83203556057',true,'ANALYST'),
-('Nuzae','1981-08-02','73481093063',false,''),
-('Daykeopi','1983-10-05','37265854004',false,'');
+INSERT INTO person (name, date_birth, cpf, employee, position, active) VALUES
+('Moheu','1922-01-01','05691930010',true,'MANAGER',false),
+('Zutoatya','1933-02-03','82927089019',true,'MANAGER',true),
+('Gacayoss','1940-03-05','72860478094',true,'ANALYST',true),
+('Fuynu','1941-04-07','83203556057',true,'ANALYST',true),
+('Nuzae','1952-05-09','73481093063',true,'ANALYST',true),
+('Daykeopi','1953-06-11','37265854004',true,'MANAGER',true),
+('Toufo','1964-07-13','76389431040',true,'MANAGER',true),
+('Loikainl','1965-08-15','02737327067',true,'MANAGER',false),
+('Tigerean','1976-09-17','35973626059',false,'',false),
+('Xaplexuy','1977-10-19','35483576012',false,'',false),
+('Kenes','1988-11-21','91635525071',false,'',true),
+('Nebe','1989-12-23','54780433037',true,'MANAGER',true),
+('Arwoas','1990-11-25','95140006090',true,'MANAGER',true),
+('Pouze','1999-12-27','21662319002',true,'MANAGER',true),
+('Banus','2001-12-29','01931281017',false,'',true),
+('Conaemo','2002-12-30','93420874006',true,'ANALYST',true),
+('Kuabi','2003-12-31','76862930095',true,'ANALYST',true);

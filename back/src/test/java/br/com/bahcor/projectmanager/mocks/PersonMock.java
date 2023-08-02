@@ -14,6 +14,7 @@ public class PersonMock {
                 .dateBirth(LocalDate.now())
                 .employee(true)
                 .position("MANAGER")
+                .active(true)
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class PersonMock {
                 .dateBirth(LocalDate.now())
                 .employee(true)
                 .position("MANAGER")
+                .active(true)
                 .build();
     }
 
