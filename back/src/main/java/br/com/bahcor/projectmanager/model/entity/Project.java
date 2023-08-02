@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,12 +25,18 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String name;
+    @NotNull
     private LocalDate dateStart;
+    @NotNull
     private LocalDate dateEstimatedEnd;
     private LocalDate dateEnd;
     private String description;
+    @NotNull
     private String status;
+    @NotNull
     private BigDecimal budget;
     private String risk;
 

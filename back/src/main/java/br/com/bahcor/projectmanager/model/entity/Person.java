@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -21,11 +22,15 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String name;
     private LocalDate dateBirth;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String cpf;
+    @NotNull
     private boolean employee;
     private String position;
+    @NotNull
+    private boolean active;
 
 }
