@@ -1,0 +1,51 @@
+.grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+}
+
+.grid-area {
+	grid-template-areas:
+		"name name name"
+    "description description description"
+		"dateStart dateEstimatedEnd dateEnd"
+    "status budget risk"
+    "persons persons persons"
+	;
+}
+
+mat-form-field:has([formcontrolname="name"]) {
+  grid-area: name;
+}
+
+mat-form-field:has([formcontrolname="dateStart"]) {
+  grid-area: dateStart;
+}
+
+mat-form-field:has([formcontrolname="dateEstimatedEnd"]) {
+  grid-area: dateEstimatedEnd;
+}
+
+mat-form-field:has([formcontrolname="dateEnd"]) {
+  grid-area: dateEnd;
+}
+
+mat-form-field:has([formcontrolname="description"]) {
+  grid-area: description;
+}
+
+mat-form-field:has([formcontrolname="status"]) {
+  grid-area: status;
+}
+
+mat-form-field:has([formcontrolname="budget"]) {
+  grid-area: budget;
+}
+
+mat-form-field:has([formcontrolname="risk"]) {
+  grid-area: risk;
+}
+
+mat-form-field:has([formcontrolname="persons"]) {
+  grid-area: persons;
+}

@@ -1,0 +1,32 @@
+.mat-column-description,
+.mat-column-persons,
+.mat-column-actions {
+  text-align: center;
+}
+
+section {
+  margin-bottom: 2em;
+}
+
+.grid {
+	display: grid;
+}
+
+.grid-template-columns {
+	grid-template-columns: 1fr;
+}
+
+.item-row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+button {
+  &+& {
+    margin-left: 0.5em;
+  }
+}
+
+
+
+

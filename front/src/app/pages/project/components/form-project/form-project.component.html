@@ -1,0 +1,116 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<form [formGroup]="formGroup">
+
+  <div mat-dialog-content class="grid grid-area">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name"/>
+      <mat-error *ngIf="formGroup.controls['name'].errors?.['required']">Name is required</mat-error>
+      <mat-error *ngIf="formGroup.controls['name'].errors?.['min']">Min lenght 5 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date Start</mat-label>
+      <input matInput
+        [matDatepicker]="ds"
+        formControlName="dateStart"
+        readonly="true"
+        [min]="currentDate"
+        required
+      />
+      <mat-error *ngIf="formGroup.controls['dateStart'].errors?.['required']">Date start is required</mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="ds"></mat-datepicker-toggle>
+      <mat-datepicker #ds disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date Estimated End</mat-label>
+      <input matInput
+        [matDatepicker]="dee"
+        formControlName="dateEstimatedEnd"
+        readonly="true"
+        [min]="formGroup.get('dateStart')!.value"
+        required
+      />
+      <mat-error *ngIf="formGroup.controls['dateEstimatedEnd'].errors?.['required']">Date estimated end is required</mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="dee"></mat-datepicker-toggle>
+      <mat-datepicker #dee disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date End</mat-label>
+      <input matInput
+        [matDatepicker]="de"
+        formControlName="dateEnd"
+        readonly="false"
+        [min]="formGroup.get('dateEstimatedEnd')?.value"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="de"></mat-datepicker-toggle>
+      <mat-datepicker #de disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput #description required
+        formControlName="description"
+        maxlength="250"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="7">
+      </textarea>
+      <mat-hint align="end">{{description.value.length}} / 250</mat-hint>
+      <mat-error *ngIf="formGroup.controls['description'].errors?.['required']">Description is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option></mat-option>
+        <mat-option *ngFor="let s of status" [value]="s">
+          {{ s }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroup.controls['status'].errors?.['required']">Status is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Budget</mat-label>
+      <input matInput formControlName="budget" currencyMask required/>
+      <mat-error *ngIf="formGroup.controls['budget'].errors?.['required']">Budget is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Risk</mat-label>
+      <mat-select formControlName="risk">
+        <mat-option></mat-option>
+        <mat-option *ngFor="let r of risks" [value]="r">
+          {{ r }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Persons</mat-label>
+      <mat-select formControlName="persons" multiple>
+        <mat-option *ngFor="let p of listPersons" [value]="p.id">
+          {{ p.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <pre>listPersons: {{ listPersons | json }}</pre> -->
+    <!-- <pre>Form infos: {{ formGroup.value | json }}</pre> -->
+    <!-- <pre>Form invalid: {{ formGroup.invalid | json }}</pre> -->
+
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary"
+      [disabled]="formGroup.invalid"
+      (click)="save()">
+      Salvar
+    </button>
+  </div>
+</form>

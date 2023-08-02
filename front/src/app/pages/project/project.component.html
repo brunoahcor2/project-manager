@@ -1,1 +1,104 @@
-<h1> {{ title }} </h1>
+<section class="grid grid-template-columns">
+	<div class="item-row-reverse">
+    <button mat-mini-fab
+    matTooltip="Add new project"
+    matTooltipPosition="left"
+    aria-label="Add new project"
+    color="primary"
+    (click)="openDialog()">
+      <mat-icon>create_new_folder</mat-icon>
+    </button>
+  </div>
+</section>
+
+<mat-card>
+
+  <mat-card-content>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- NAME Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>NAME</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+
+      <!-- DATES Columns -->
+      <ng-container matColumnDef="dateStart">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>START</th>
+        <td mat-cell *matCellDef="let row">{{ row.dateStart | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dateEstimatedEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ESTIMATED END</th>
+        <td mat-cell *matCellDef="let row">{{ row.dateEstimatedEnd | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dateEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>END</th>
+        <td mat-cell *matCellDef="let row">{{ row.dateEnd | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- DESCRIPTION Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>DESCRIPTION</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon [matTooltip]="row.description" matTooltipPosition="after" >description</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- STATUS Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+        <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+      </ng-container>
+
+      <!-- BUDGET Column -->
+      <ng-container matColumnDef="budget">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BUDGET</th>
+        <td mat-cell *matCellDef="let row">{{ row.budget | currency }}</td>
+      </ng-container>
+
+      <!-- RISK Column -->
+      <ng-container matColumnDef="risk">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>RISK</th>
+        <td mat-cell *matCellDef="let row">{{ row.risk }}</td>
+      </ng-container>
+
+      <!-- PERSONS Column -->
+      <ng-container matColumnDef="persons">
+        <th mat-header-cell *matHeaderCellDef>PERSONS</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon [matTooltip]="getPersonsTooltip(row.persons)" matTooltipPosition="left" >person</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- ACTIONS Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-mini-fab (click)="openDialog(row)" color="_" matTooltip="Edit project" aria-label="Edit project">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="openDialogConfirm(row)" color="_" matTooltip="Delete project" aria-label="Delete project">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Select project page"></mat-paginator>
+  </mat-card-content>
+</mat-card>
+
+<!-- <mat-card>
+  <pre>{{ dataSource.data | json }}</pre>
+</mat-card> -->
