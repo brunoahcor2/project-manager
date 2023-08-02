@@ -1,44 +1,33 @@
-import { PersonRequestModel } from 'src/app/shared/models/PersonRequestModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, tap } from 'rxjs';
-import { PersonResponseModel } from 'src/app/shared/models/PersonResponseModel';
+import { catchError, Observable } from 'rxjs';
+import { ConfigService } from 'src/app/configs/config.service';
+import { environment } from 'src/app/configs/environments/environment.hml';
+import { PersonRequestModel } from 'src/app/shared/models/person-request.model';
+import { PersonResponseModel } from 'src/app/shared/models/person-response.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  url = 'http://localhost:8081/project-manager/api/v1/persons';
+  url = environment.api.url.concat(environment.api.person.domain);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
-  listAllPersons(): Observable<PersonResponseModel[]>{
+  listAll(): Observable<PersonResponseModel[]>{
     return this.http.get<PersonResponseModel[]>(this.url)
     .pipe(
-      catchError(this.handleError<PersonResponseModel[]>('listAllPersons', []))
+      catchError((error) => this.config.handleError(error, 'listAll'))
     );
   }
 
-  save(person: PersonRequestModel): Observable<PersonResponseModel>{
-    return this.http.post<PersonResponseModel>(this.url.concat('/registry'), person)
+  edit(person: PersonRequestModel): Observable<PersonResponseModel>{
+    return this.http.put<PersonResponseModel>(this.url.concat(`/${person.id}`), person)
     .pipe(
-      catchError(this.handleError<PersonResponseModel>('save'))
+      catchError((error) => this.config.handleError(error, 'edit', person))
     );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 
 }

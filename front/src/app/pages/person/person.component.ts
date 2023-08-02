@@ -1,11 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { constantes } from 'src/app/configs/environments/constantes';
+import { message } from 'src/app/configs/environments/message';
 import { PersonService } from 'src/app/core/services/person.service';
-import { PersonRequestModel } from 'src/app/shared/models/PersonRequestModel';
-import { PersonResponseModel } from 'src/app/shared/models/PersonResponseModel';
+import { MenuItem } from 'src/app/shared/models/menu-item';
+import { PersonRequestModel } from 'src/app/shared/models/person-request.model';
+import { PersonResponseModel } from 'src/app/shared/models/person-response.model';
 
 @Component({
   selector: 'app-person',
@@ -13,6 +17,8 @@ import { PersonResponseModel } from 'src/app/shared/models/PersonResponseModel';
   styleUrls: ['./person.component.scss']
 })
 export class PersonComponent {
+
+  title: string | undefined;
 
   displayedColumns: string[] = [
     'id',
@@ -31,9 +37,18 @@ export class PersonComponent {
 
   constructor(
     private service: PersonService,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
     private _snackBar: MatSnackBar
   ) {
+    this.getTitlePage();
     this.listAll();
+  }
+
+  getTitlePage(): void {
+    const menuSelectedString = localStorage.getItem(constantes.localStorage.menuSelected);
+    const menuSelected: MenuItem = menuSelectedString ? JSON.parse(menuSelectedString) : "";
+    this.title = menuSelected.displayName;
   }
 
   filtrar(event: Event): void {
@@ -46,35 +61,35 @@ export class PersonComponent {
 
   toggle(request: PersonResponseModel): void {
     request.active = !request.active;
-    this.save(request as PersonRequestModel);
+    this.edit(request as PersonRequestModel);
   }
 
-  save(person: PersonRequestModel): void {
-    this.service.save(person).subscribe(
-      (response: PersonResponseModel) => {
-        this.reloadItemDataTable(response);
-        this.loadComponentsTable();
-        this.openSnackBar("Person updated successfully!","Close");
-      });
+  edit(person: PersonRequestModel): void {
+    this.service.edit(person)
+    .subscribe({
+      next: (response: PersonResponseModel) => {
+        this.openSnackBar(message.success.person.updateSuccess,"Close");
+      },
+      error: (error) => {
+        this.openSnackBar(message.errors.person.notFound,"Close");
+      },
+    });
   }
 
   listAll(): void {
-    this.service.listAllPersons().subscribe(
-      (response: PersonResponseModel[]) => {
+    this.service.listAll()
+    .subscribe({
+      next: (response: PersonResponseModel[]) => {
         this.loadDataTable(response);
-        this.loadComponentsTable();
-      });
+      },
+      error: (error) => {
+        this.openSnackBar(message.errors.person.notFound,"Close");
+      },
+    });
   }
 
   private loadDataTable(persons: PersonResponseModel[]): void {
     this.dataSource = new MatTableDataSource(persons);
-  }
-
-  private reloadItemDataTable(person: PersonResponseModel): void {
-    this.dataSource.data.filter(p => p.id === person.id).map(p => person);
-  }
-
-  private loadComponentsTable(): void {
     this.dataSource.paginator = this.paginator;
     this.loadSortTable();
   }
@@ -87,7 +102,7 @@ export class PersonComponent {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, { duration: 3000 });
   }
 
 }

@@ -1,15 +1,17 @@
+<section class="grid grid-template-columns">
+	<div class="item-row-reverse">
+    <button mat-mini-fab
+    matTooltip="Add new person"
+    matTooltipPosition="left"
+    aria-label="Add new person"
+    color="primary">
+      <mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+</section>
+
 <mat-card>
 
-  <mat-card-header>
-      <div mat-card-avatar>
-        <mat-icon matListItemIcon>person</mat-icon>
-      </div>
-      <mat-card-title>Registered persons</mat-card-title>
-      <mat-card-subtitle>
-        <p>The users table below only allows you to: [ 1 - Consult the registered users ] and [ 2 - Enable/Disable users ].
-        <br/>The registration of new users must be done through the XPTO system.</p>
-      </mat-card-subtitle>
-  </mat-card-header>
   <mat-card-content>
 
     <table mat-table [dataSource]="dataSource" matSort>
