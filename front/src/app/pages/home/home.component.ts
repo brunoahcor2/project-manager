@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { constantes } from 'src/app/configs/environments/constantes';
+import { MenuItem } from 'src/app/shared/models/menu-item';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +10,7 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
   title = "Home";
+
+  constructor() { }
 
 }

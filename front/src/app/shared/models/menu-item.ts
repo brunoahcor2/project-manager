@@ -3,5 +3,4 @@ export interface MenuItem {
   disabled?: boolean;
   iconName: string;
   route?: string;
-  selected: boolean,
 }
