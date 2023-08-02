@@ -6,6 +6,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,13 +17,13 @@ import java.time.LocalDate;
 @Builder
 public class PersonDTO implements Serializable {
 
-    @NonNull
+    @NotBlank
     private String name;
 
     @NonNull
     private String cpf;
 
-    @NonNull
+    @NotNull
     private boolean employee;
 
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -30,5 +32,7 @@ public class PersonDTO implements Serializable {
 
     private Long id;
     private String position;
+    @NotNull
+    private boolean active;
 
 }
